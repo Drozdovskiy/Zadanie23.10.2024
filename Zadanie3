@@ -1,0 +1,39 @@
+Zclass Zadanie3
+{
+    static void Main(string[] args)
+    {
+        Console.Write("Введите количество строк (M): ");
+        int M = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Введите количество столбцов (N): ");
+        int N = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Введите число Q: ");
+        int Q = Convert.ToInt32(Console.ReadLine());
+
+        int[,] matrix = new int[M, N];
+
+        Console.WriteLine("Введите набор из N чисел:");
+        for (int j = 0; j < N; j++)
+        {
+            matrix[0, j] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        for (int i = 1; i < M; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                matrix[i, j] = matrix[i - 1, j] * Q;
+            }
+        }
+
+        Console.WriteLine("Сформированная матрица:");
+        for (int i = 0; i < M; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                Console.Write(matrix[i, j] + "\t");
+            }
+        }
+    }
+}
