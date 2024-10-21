@@ -1,0 +1,70 @@
+
+public class Zadanie2
+{
+    public static void Main()
+    {
+        int[] array = { 1, 2, 2, 3, 3, 3, 4, 5, 5, 5, 5 }; 
+        int K = 3; 
+        int[] modifiedArray = RemoveSeries(array, K);
+
+        Console.WriteLine("Модифицированный массив: " + string.Join(", ", modifiedArray));
+    }
+
+    public static int[] RemoveSeries(int[] array, int K)
+    {
+        if (K <= 1)
+            throw new ArgumentException("K должно быть больше 1");
+
+        int n = array.Length;
+        bool[] toDelete = new bool[n];
+
+        int count = 1; 
+        for (int i = 1; i < n; i++)
+        {
+            if (array[i] == array[i - 1])
+            {
+                count++;
+            }
+            else
+            {
+                if (count >= K)
+                {
+                    for (int j = i - count; j < i; j++)
+                    {
+                        toDelete[j] = true;
+                    }
+                }
+                count = 1; 
+            }
+        }
+
+        if (count >= K)
+        {
+            for (int j = n - count; j < n; j++)
+            {
+                toDelete[j] = true;
+            }
+        }
+
+        int newSize = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (!toDelete[i])
+            {
+                newSize++;
+            }
+        }
+
+        int[] result = new int[newSize];
+        int index = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (!toDelete[i])
+            {
+                result[index++] = array[i];
+            }
+        }
+
+        return result;
+    }
+}
